@@ -10,7 +10,8 @@ const PATHS = {
     assets: 'assets/'
 };
 
-const PAGES = fs.readdirSync(PATHS.src).filter(fileName => fileName.endsWith('.html'))
+const PAGES_DIR = `${PATHS.src}/pug/pages/`;
+const PAGES = fs.readdirSync(PAGES_DIR).filter(fileName => fileName.endsWith('.pug'));
 
 module.exports = {
     externals: {
@@ -38,6 +39,9 @@ module.exports = {
     },
     module: {
         rules: [{
+            test: /\.pug$/,
+            loader: 'pug-loader'
+        }, {
             test: /\.js$/,
             loader: 'babel-loader',
             exclude: '/node-modules/'
@@ -88,8 +92,8 @@ module.exports = {
             filename: `${PATHS.assets}css/[name].css`
         }),
         ...PAGES.map(page => new HtmlWebpackPlugin({
-            template: `${PATHS.src}/${page}`,
-            filename: `./${page}`
+            template: `${PAGES_DIR}/${page}`,
+            filename: `./${page.replace(/\.pug/, '.html')}`
         })),
         new CopyWebpackPlugin([
             {from: `${PATHS.src}/img`, to: `${PATHS.assets}img`}
