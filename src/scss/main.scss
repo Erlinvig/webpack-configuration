@@ -1,10 +1,13 @@
 .wrapper {
+  width: 1000px;
+  margin: 1em auto;
   h1 {
-    font-size: 20px;
-    color: red;
+    font-size: 3em;
+    color: darkgreen;
+    text-align: center;
   }
-  h2 {
-    font-size: 16px;
-    color: green;
+  img {
+    width: 100%;
+    height: auto;
   }
 }
